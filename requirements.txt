@@ -1,0 +1,3 @@
+sqlmodel
+sqlalchemy_utils
+fastapi[all]
