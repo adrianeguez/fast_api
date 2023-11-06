@@ -11,6 +11,7 @@ from session.db_session import engine
 load_dotenv()  # take environment variables from .env.
 
 import libro_biblioteca.libro_biblioteca_api
+import libro_biblioteca.libro_biblioteca_api_v2
 
 
 app = FastAPI(
@@ -34,6 +35,7 @@ app = FastAPI(
 )
 
 app.include_router(libro_biblioteca.libro_biblioteca_api.router)
+app.include_router(libro_biblioteca.libro_biblioteca_api_v2.router)
 
 cors_origins_text = os.getenv('CORS_ORIGINS')
 origins = cors_origins_text.split(",")

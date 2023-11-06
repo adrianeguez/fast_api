@@ -1,11 +1,12 @@
 from abc import ABCMeta, abstractmethod
 from typing import Optional, List
-
+from datetime import datetime
 from fastapi import HTTPException
-from sqlalchemy import or_, select
+from sqlalchemy import or_
 
 from libro_biblioteca.dto.libro_biblioteca_create_dto import LibroBibliotecaCreateDto
 from libro_biblioteca.dto.libro_biblioteca_update_dto import LibroBibliotecaUpdateDto
+from libro_biblioteca.enums.genero_libro_enum import GeneroLibroEnum
 from libro_biblioteca.libro_biblioteca_schema import LibroBibliotecaSchema
 from sqlmodel import Session, select
 from session.db_session import get_session, engine
@@ -38,10 +39,46 @@ class LibroBibliotecaRepo:
 
 
 class LibroBibliotecaSqliteRepo(LibroBibliotecaRepo):
-    def get(self) -> list[LibroBibliotecaSchema]:
-        with Session(engine) as session:
-            query = select(LibroBibliotecaSchema)
-            return session.exec(query).all()
+    def get(
+            self,
+            genero_libro: GeneroLibroEnum | None = None,
+            created_at: datetime| None= None,
+            updated_at: datetime| None= None,
+            nombre: str| None= None,
+            description: str| None= None,
+            isbn: str| None = None,
+            offset: int | None = 0,
+            limit: int | None = 10,
+    ) -> list[LibroBibliotecaSchema]:
+        with (Session(engine) as session):
+            query = select(
+                LibroBibliotecaSchema
+            )
+            if genero_libro:
+                query = query.where(
+                    LibroBibliotecaSchema.genero_libro == genero_libro
+                )
+            if created_at:
+                query = query.where(
+                    LibroBibliotecaSchema.created_at >= created_at
+                )
+            if updated_at:
+                query = query.where(
+                    LibroBibliotecaSchema.updated_at >= updated_at
+                )
+            if isbn:
+                query = query.where(
+                    LibroBibliotecaSchema.isbn == isbn
+                )
+            if nombre:
+                query = query.where(
+                    or_(LibroBibliotecaSchema.nombre == nombre)
+                )
+            if description:
+                query = query.where(
+                    or_(LibroBibliotecaSchema.description == description)
+                )
+            return session.exec(query.offset(offset).limit(limit)).all()
 
     def get_one(self, id: int) -> LibroBibliotecaSchema:
         with Session(engine) as session:

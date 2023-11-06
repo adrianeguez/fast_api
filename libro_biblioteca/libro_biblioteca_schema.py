@@ -21,7 +21,7 @@ class LibroBibliotecaSchema(SQLModel,table = True):
         default=GeneroLibroEnum.accion,
     ))
     nombre: str = Field(min_length=3, max_length=40, sa_column= Column(String,index=True))
-    description: str = Field(min_length=3, max_length=255)
+    description: str = Field(min_length=3, max_length=255, index=True)
     isbn: str =  Field(min_length=10, max_length=255, sa_column= Column(String, index=True, unique=True))
 
     class Config:
