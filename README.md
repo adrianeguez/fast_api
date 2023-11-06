@@ -146,3 +146,55 @@ WHERE ProductID = ALL
        FROM OrderDetails
        WHERE Quantity = 10); -- ALL (todos cumplen la condicion retorna TRUE sino FALSE)
 ``` 
+
+### GCP
+
+`Compute Engine`
+
+- General purpose
+- Memory Optimized
+- Compute Intensive
+- Accelerator optimized (CUDA)
+- Scale out
+
+`Object storage Bucket`
+
+- Standard
+- Nearline
+- Coldline
+- Archive
+
+`Cloud Code`
+
+- Cloud Code is a set of AI-assisted IDE plugins for popular IDEs that make it easier to create, deploy and integrate 
+applications with Google Cloud
+
+`Cloud SDK`
+
+- Libraries and tools for interacting with Google Cloud products and services.
+
+`Cloud Source Repositories`
+
+- Cloud Source Repositories helps you privately host, track, and manage changes to large codebases on Google Cloud Platform.
+
+`Cloud build`
+
+- Build, test, and deploy on our serverless CI/CD platform.
+
+`Artifact Registry`
+
+- The next generation of Container Registry. Store, manage, and secure your build artifacts.
+
+`Cloud Run`
+
+- Runs your frontend and backend services, batch jobs, and queue processing workloads. Optimized for developer productivity 
+and fast container startup.
+
+`Cloud Functions`
+
+- Run your code in the cloud with no servers or containers to manage with our scalable, pay-as-you-go functions as a service (FaaS) product.
+
+
+`Cloud shell`
+
+- gcloud kubectl
